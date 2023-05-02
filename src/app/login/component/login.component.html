@@ -1,0 +1,55 @@
+<form [formGroup]="loginForm" class="login-form" (submit)="onSubmit()">
+  <h2>>> Koncili</h2>
+  <div class="form-field">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      placeholder="example@email.com"
+      name="username"
+      formControlName="username"
+      [ngClass]="{'error-field': loginForm.get('username')?.errors && loginForm.get('username')?.touched}"
+    />
+
+    <span
+      *ngIf="loginForm.get('username')?.errors?.['email'] && loginForm.get('username')?.touched"
+      class="error-message"
+    >
+      Insira um email válido.
+    </span>
+
+    <span
+      *ngIf="loginForm.get('username')?.errors?.['required'] && loginForm.get('username')?.touched"
+      class="error-message"
+    >
+      Email obrigatório.
+    </span>
+  </div>
+
+  <div class="form-field">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      placeholder="****"
+      name="password"
+      [ngClass]="{'error-field': loginForm.get('password')?.errors && loginForm.get('password')?.touched}"
+      formControlName="password"
+    />
+
+    <span
+      *ngIf="
+        loginForm.get('password')?.errors && loginForm.get('password')?.touched
+      "
+      class="error-message"
+    >
+      Senha obrigatória.
+    </span>
+  </div>
+
+  <input
+    type="submit"
+    value="Entrar"
+    class="input-submit"
+    [disabled]="!loginForm.valid"
+  />
+  <span class="error-message" *ngIf="errorMessage">{{ errorMessage }}</span>
+</form>
